@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find jobs, explore careers, and connect with employers using JobsHub.">
+  <title>JobsHub | Find Your Dream Job</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --primary: #2563eb; --dark: #111827; --muted: #6b7280; --background: #f5f7fb; --white: #fff; --border: #e5e7eb; }
+    body { font-family: Arial, sans-serif; background: var(--background); color: var(--dark); line-height: 1.6; }
+    header { background: white; padding: 18px 7%; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid var(--border); }
+    .logo { font-size: 25px; font-weight: bold; color: var(--primary); }
+    nav { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    nav a { text-decoration: none; color: var(--dark); font-weight: 500; }
+    .btn { display: inline-block; background: var(--primary); color: white; padding: 11px 20px; border: none; border-radius: 8px; text-decoration: none; cursor: pointer; font-size: 14px; font-weight: bold; }
+    .hero { padding: 75px 7% 55px; text-align: center; background: linear-gradient(135deg, #eff6ff, #fff); }
+    .hero h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.2; margin-bottom: 18px; }
+    .hero h1 span { color: var(--primary); }
+    .hero p { color: var(--muted); max-width: 600px; margin: 0 auto 28px; }
+    .search-box { display: flex; gap: 10px; max-width: 750px; margin: auto; background: white; padding: 12px; border-radius: 12px; box-shadow: 0 8px 30px #0000000d; }
+    .search-box input, .search-box select { min-width: 0; flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: 7px; outline-color: var(--primary); background: white; }
+    .container { width: 86%; max-width: 1200px; margin: 45px auto; }
+    .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 22px; }
+    .section-heading h2 { font-size: 27px; }
+    .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 45px; }
+    .category { background: white; padding: 22px 15px; border: 1px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; transition: .2s; }
+    .category:hover { border-color: var(--primary); transform: translateY(-3px); }
+    .category .icon { font-size: 30px; margin-bottom: 8px; }
+    .category p { color: var(--muted); font-size: 13px; }
+    .jobs-list { display: grid; gap: 16px; }
+    .job-card { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; padding: 23px; background: white; border: 1px solid var(--border); border-radius: 12px; transition: .2s; }
+    .job-card:hover { border-color: #93b4ff; box-shadow: 0 5px 20px #00000008; }
+    .job-info { flex: 1; min-width: 200px; }
+    .job-info h3 { margin-bottom: 5px; font-size: 19px; }
+    .company { color: var(--primary); font-weight: bold; font-size: 14px; }
+    .job-meta { color: var(--muted); font-size: 13px; margin-top: 8px; }
+    .job-type { display: inline-block; background: #eff6ff; color: #1d4ed8; border-radius: 5px; padding: 4px 9px; font-size: 12px; margin-top: 10px; }
+    .job-actions { display: flex; gap: 10px; align-items: center; }
+    .save-btn { padding: 10px 13px; background: white; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 17px; }
+    .save-btn.saved { color: var(--primary); background: #eff6ff; }
+    .empty { display: none; text-align: center; padding: 30px; color: var(--muted); background: white; border-radius: 10px; }
+    .cta { margin-top: 55px; padding: 45px 25px; background: #1e40af; color: white; text-align: center; border-radius: 15px; }
+    .cta h2 { font-size: 28px; margin-bottom: 10px; }
+    .cta p { margin-bottom: 20px; }
+    .cta .btn { background: white; color: #1e40af; }
+    footer { text-align: center; padding: 30px 15px; margin-top: 50px; background: white; color: var(--muted); border-top: 1px solid var(--border); font-size: 14px; }
+    @media (max-width: 600px) {
+      header { padding: 16px 5%; }
+      nav { gap: 12px; }
+      nav a { font-size: 13px; }
+      .hero { padding: 50px 5% 35px; }
+      .search-box { flex-direction: column; }
+      .container { width: 90%; }
+      .job-card { align-items: flex-start; }
+      .job-actions { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">JobsHub</div>
+    <nav>
+      <a href="#home">Home</a><a href="#categories">Categories</a><a href="#jobs">Find Jobs</a><a href="#employers">Employers</a><a href="#jobs" class="btn">Explore Jobs</a>
+    </nav>
+  </header>
+  <section class="hero" id="home">
+    <h1>Find Your <span>Dream Job</span></h1>
+    <p>Discover exciting career opportunities and connect with employers. Your next career move starts here.</p>
+    <form class="search-box" id="searchForm">
+      <input type="search" id="keyword" placeholder="Job title or company..." aria-label="Search by job title or company">
+      <select id="location" aria-label="Select location">
+        <option value="">All Locations</option><option value="Khartoum">Khartoum</option><option value="Omdurman">Omdurman</option><option value="Port Sudan">Port Sudan</option><option value="Remote">Remote</option>
+      </select>
+      <button class="btn" type="submit">Search Jobs</button>
+    </form>
+  </section>
+  <main class="container">
+    <section id="categories">
+      <div class="section-heading"><h2>Popular Categories</h2></div>
+      <div class="categories">
+        <div class="category" data-category="Technology"><div class="icon">💻</div><h3>Technology</h3><p>IT &amp; Software</p></div>
+        <div class="category" data-category="Marketing"><div class="icon">📈</div><h3>Marketing</h3><p>Digital &amp; Sales</p></div>
+        <div class="category" data-category="Design"><div class="icon">🎨</div><h3>Design</h3><p>Creative Jobs</p></div>
+        <div class="category" data-category="Finance"><div class="icon">💰</div><h3>Finance</h3><p>Accounting &amp; Banking</p></div>
+        <div class="category" data-category="Education"><div class="icon">🎓</div><h3>Education</h3><p>Teaching &amp; Training</p></div>
+      </div>
+    </section>
+    <section id="jobs">
+      <div class="section-heading"><h2>Latest Job Opportunities</h2><span id="jobCount"></span></div>
+      <div class="jobs-list" id="jobsList">
+        <article class="job-card" data-title="Frontend Developer" data-company="Tech Solutions" data-location="Khartoum" data-category="Technology">
+          <div class="job-info"><h3>Frontend Developer</h3><div class="company">Tech Solutions</div><div class="job-meta">📍 Khartoum, Sudan · 💵 Salary negotiable</div><span class="job-type">Full-time</span></div>
+          <div class="job-actions"><button class="save-btn" aria-label="Save job" title="Save job">♡</button><button class="btn apply-btn">Apply Now</button></div>
+        </article>
+        <article class="job-card" data-title="Digital Marketing Specialist" data-company="Growth Agency" data-location="Remote" data-category="Marketing">
+          <div class="job-info"><h3>Digital Marketing Specialist</h3><div class="company">Growth Agency</div><div class="job-meta">📍 Remote · 💵 Salary negotiable</div><span class="job-type">Remote</span></div>
+          <div class="job-actions"><button class="save-btn" aria-label="Save job" title="Save job">♡</button><button class="btn apply-btn">Apply Now</button></div>
+        </article>
+        <article class="job-card" data-title="Graphic Designer" data-company="Creative Studio" data-location="Omdurman" data-category="Design">
+          <div class="job-info"><h3>Graphic Designer</h3><div class="company">Creative Studio</div><div class="job-meta">📍 Omdurman, Sudan · 💵 Salary negotiable</div><span class="job-type">Part-time</span></div>
+          <div class="job-actions"><button class="save-btn" aria-label="Save job" title="Save job">♡</button><button class="btn apply-btn">Apply Now</button></div>
+        </article>
+        <article class="job-card" data-title="Accountant" data-company="Future Finance" data-location="Khartoum" data-category="Finance">
+          <div class="job-info"><h3>Accountant</h3><div class="company">Future Finance</div><div class="job-meta">📍 Khartoum, Sudan · 💵 Salary negotiable</div><span class="job-type">Full-time</span></div>
+          <div class="job-actions"><button class="save-btn" aria-label="Save job" title="Save job">♡</button><button class="btn apply-btn">Apply Now</button></div>
+        </article>
+        <article class="job-card" data-title="English Teacher" data-company="Knowledge Academy" data-location="Port Sudan" data-category="Education">
+          <div class="job-info"><h3>English Teacher</h3><div class="company">Knowledge Academy</div><div class="job-meta">📍 Port Sudan, Sudan · 💵 Salary negotiable</div><span class="job-type">Full-time</span></div>
+          <div class="job-actions"><button class="save-btn" aria-label="Save job" title="Save job">♡</button><button class="btn apply-btn">Apply Now</button></div>
+        </article>
+      </div>
+      <div class="empty" id="emptyMessage">No jobs found. Try a different search.</div>
+    </section>
+    <section class="cta" id="employers">
+      <h2>Are You Hiring?</h2><p>Connect with talented candidates and find the right people for your team.</p>
+      <a href="mailto:employer@example.com?subject=Post%20a%20Job" class="btn">Contact Us to Post a Job</a>
+    </section>
+  </main>
+  <footer><p>© <span id="year"></span> JobsHub. All rights reserved.</p><p>Connecting talent with opportunity.</p></footer>
+  <script>
+    const keywordInput = document.getElementById("keyword");
+    const locationInput = document.getElementById("location");
+    const jobs = [...document.querySelectorAll(".job-card")];
+    const emptyMessage = document.getElementById("emptyMessage");
+    const jobCount = document.getElementById("jobCount");
+    let selectedCategory = "";
+
+    function filterJobs() {
+      const keyword = keywordInput.value.trim().toLowerCase();
+      const location = locationInput.value.toLowerCase();
+      let visibleCount = 0;
+      jobs.forEach(job => {
+        const title = job.dataset.title.toLowerCase();
+        const company = job.dataset.company.toLowerCase();
+        const jobLocation = job.dataset.location.toLowerCase();
+        const category = job.dataset.category;
+        const matchesKeyword = !keyword || title.includes(keyword) || company.includes(keyword);
+        const matchesLocation = !location || jobLocation.includes(location);
+        const matchesCategory = !selectedCategory || category === selectedCategory;
+        const visible = matchesKeyword && matchesLocation && matchesCategory;
+        job.style.display = visible ? "flex" : "none";
+        if (visible) visibleCount++;
+      });
+      jobCount.textContent = visibleCount + " jobs found";
+      emptyMessage.style.display = visibleCount ? "none" : "block";
+    }
+
+    document.getElementById("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+      filterJobs();
+      document.getElementById("jobs").scrollIntoView({ behavior: "smooth" });
+    });
+    keywordInput.addEventListener("input", filterJobs);
+    locationInput.addEventListener("change", filterJobs);
+
+    document.querySelectorAll(".category").forEach(category => {
+      category.addEventListener("click", () => {
+        const name = category.dataset.category;
+        selectedCategory = selectedCategory === name ? "" : name;
+        document.querySelectorAll(".category").forEach(item => {
+          item.style.background = item.dataset.category === selectedCategory ? "#eff6ff" : "white";
+          item.style.borderColor = item.dataset.category === selectedCategory ? "#2563eb" : "#e5e7eb";
+        });
+        filterJobs();
+        document.getElementById("jobs").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll(".save-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        button.classList.toggle("saved");
+        button.textContent = button.classList.contains("saved") ? "♥" : "♡";
+      });
+    });
+
+    document.querySelectorAll(".apply-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const job = button.closest(".job-card");
+        const title = job.dataset.title;
+        const company = job.dataset.company;
+        const subject = encodeURIComponent("Job Application: " + title);
+        const body = encodeURIComponent("Hello " + company + ",\n\nI am interested in applying for the " + title + " position.\n\nPlease let me know how I can submit my CV.\n");
+        window.location.href = "mailto:employer@example.com?subject=" + subject + "&body=" + body;
+      });
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+    filterJobs();
+  </script>
+</body>
+</html>
